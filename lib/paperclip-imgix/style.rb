@@ -151,7 +151,12 @@ module Paperclip::Imgix
       :text_clip_text            => :txtcliptxt,
       :text_padding              => :txtpad,
       :text_width                => :txtwidth,
-      :text_shadow               => :txtshad
+      :text_shadow               => :txtshad,
+      :text_shadow               => :txtshad,
+
+      :pixelate                  => range(:px, 0, 100),
+      :border_raw                => string(:border),
+      :mask                      => string(:mask)
     }
 
     def self.parameters(style, processors=nil)

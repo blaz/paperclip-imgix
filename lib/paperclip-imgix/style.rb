@@ -41,9 +41,11 @@ module Paperclip::Imgix
     end
 
     Keys = {
+      :auto        => list(:auto, %w{format redeye enhance}),
       :crop        => list(:crop, %w{top bottom left right faces}),
-      :fmt         => string(:fmt, /\A(jpg|png|jp2)\Z/),
+      :fmt         => string(:fmt, /\A(jpg|pjpg|jxr|png|webp)\Z/),
       :q           => range(:q, 0, 100),
+      :lossless    => string(:lossless, /\A(true)\Z/),
       :page        => range(:page, 1, 9999),
       :dpr         => range(:dpr, 0.01, 10.0, false),
       :mark        => proc do |val, par|

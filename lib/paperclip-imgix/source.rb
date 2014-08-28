@@ -25,6 +25,7 @@ module Paperclip::Imgix
       @type = self.class.canonical_type(options['type'])
       @secure_url_token = options['secure_url_token']
       @protocol = options['protocol'] || 'http'
+      @protocol_relative = options['protocol_relative'] || false
 
       case @type
       when :webfolder, :s3
@@ -52,7 +53,7 @@ module Paperclip::Imgix
                    url.path
                  else
                    unless url.path.start_with?(@base_url.path)
-                     raise Paperclip::Imgix::Errors::AssetPathMismatach 
+                     raise Paperclip::Imgix::Errors::AssetPathMismatach
                    end
                    url.path[@base_url.path.length..-1]
                  end
@@ -82,7 +83,11 @@ module Paperclip::Imgix
           hostname = "#{@domain_name}.imgix.net"
         end
 
-        "#{@protocol}://#{hostname}#{path}"
+        if @protocol_relative
+          "//#{hostname}#{path}"
+        else
+          "#{@protocol}://#{hostname}#{path}"
+        end
       end
     end
 
